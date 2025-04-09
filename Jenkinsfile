@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "kirthik/flask-cicd"
+        DOCKER_IMAGE = "kirthiksubbiah/flask-cicd"
         DOCKER_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/your-username/flask-cicd.git'
+                git 'https://github.com/kirthiksubbiah/mock-test1.git'
             }
         }
 
@@ -23,7 +23,7 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh """
                     echo $PASS | docker login -u $USER --password-stdin
                     docker push $DOCKER_IMAGE:$DOCKER_TAG
